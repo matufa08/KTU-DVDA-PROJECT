@@ -1,6 +1,6 @@
 library(h2o)
 library(tidyverse)
-h2o.init(max_mem_size = "8g")
+h2o.init(max_mem_size = "6g")
 
 df <- h2o.importFile("../1-data/train_data.csv")
 test_data <- h2o.importFile("../1-data/test_data.csv")
@@ -23,7 +23,7 @@ autoML <- h2o.automl(
   y = y,
   training_frame = train,
   max_runtime_secs = 3600,  # Maximum time in seconds for AutoML
-  nfolds = 15,  # Number of cross-validation folds
+  nfolds = 5,  # Number of cross-validation folds
   max_models = 30  # Maximum number of models to build
 )
 
@@ -31,7 +31,7 @@ autoML <- h2o.automl(
 
 leaderboard <- autoML@leaderboard
 print(leaderboard)
-model <- h2o.getModel("GBM_grid_1_AutoML_2_20231120_210556_model_6")
+model <- h2o.loadModel("../4-model/best_gbm_model_v1")
 
 h2o.performance(model, train = TRUE)
 h2o.performance(model, valid = TRUE)
@@ -49,6 +49,6 @@ predictions %>%
   select(id, y) %>%
   write_csv("../5-predictions/predictions1.csv")
 
-h2o.saveModel(model, "../4-model/", filename = "best_gbm_model")
+h2o.saveModel(model, "../4-model/", filename = "best_gbm_model_v1")
 
 
