@@ -1,0 +1,10 @@
+name: loan_app
+title:
+username: stelmokas-popiera-dvda
+account: stelmokas-popiera-dvda
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10849092
+bundleId: 8086951
+url: https://stelmokas-popiera-dvda.shinyapps.io/loan_app/
+version: 1
